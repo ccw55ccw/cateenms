@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
+
+    <package name="default" namespace="/" extends="struts-default">
+
+        <result-types>
+            <result-type name="beetl"
+                         class="org.beetl.ext.struts2.Struts2BeetlActionResult" default="true" >
+                <param name="contentType">text/html; charset=UTF-8</param>
+            </result-type>
+        </result-types>
+
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+            <interceptor name="authority"
+                         class="com.hjj.interceptor.LoginInterceptor">
+            </interceptor>
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-action-ref name="front"/>
+
+        <!-- 定义全局Result -->
+        <global-results>
+            <!-- 当返回login视图名时，转入login页面 -->
+            <result name="login" type="redirect">login</result>
+        </global-results>
+
+
+
+        <action name="index" class="com.hjj.action.IndexAction" method="index">
+            <!-- 使用此拦截器 -->
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/index.html</result>
+        </action>
+
+        <action name="login" class="com.hjj.action.LoginAction" method="login">
+            <result name="success">/html/login.html</result>
+        </action>
+
+        <!--食堂前台首页-->
+        <action name="front" class="com.hjj.action.IndexAction" method="front">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/index.html</result>
+        </action>
+
+    </package>
+
+    <package name="json" namespace="/api" extends="json-default">
+
+        <action name="doLogin" class="com.hjj.action.LoginAction" method="doLogin">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+    </package>
+
+    <include file="struts-cms.xml"/>
+    <include file="struts-cms-front.xml"/>
+
+    <!-- Add packages here -->
+
+</struts>

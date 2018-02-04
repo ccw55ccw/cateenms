@@ -1,0 +1,29 @@
+<% layout("layout/layout.html",{"menuId":0,"jsFiles":"","cssFiles":""}){%>
+
+
+<!-- welcome -->
+<div class="welcome"> 
+	<div class="container">
+
+		<%
+		for(e in menus){
+		%>
+
+		<h3>${e.tDate}菜单</h3>
+
+		<br>
+
+		${e.content}
+		<hr>
+		<br>
+
+		<%
+		}
+		%>
+	</div> 
+</div>
+<!-- //welcome -->
+
+<%
+}
+%>

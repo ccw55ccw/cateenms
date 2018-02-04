@@ -1,0 +1,45 @@
+<% layout("layout/layout.html",{"menuId":0,"jsFiles":"/assets/front/base/opinion.js","cssFiles":""}){%>
+
+
+<!-- welcome -->
+<div class="welcome"> 
+	<div class="container">
+
+		<div class="mail_grid_w3l">
+			<form id="tform" method="post">
+				<div class="col-md-6 contact_left_grid">
+					<div class="contact-fields-w3ls">
+						<input type="text" name="stuNo" placeholder="请输入学号" >
+					</div>
+					<div class="contact-fields-w3ls">
+						<input type="text" name="stuName" placeholder="请输入姓名" >
+					</div>
+					<div class="contact-fields-w3ls">
+						<input type="text" name="stuEmail" placeholder="请输入学校邮箱">
+					</div>
+					<div class="contact-fields-w3ls">
+						<input type="text" name="stuPhone" placeholder="请输入手机号码" >
+					</div>
+				</div>
+				<div class="col-md-6 contact_rightt_grid">
+
+					<div class="contact-fields-w3ls">
+						<input type="text" name="name" placeholder="请输入建议标题" >
+					</div>
+					
+					<div class="contact-fields-w3ls">
+						<textarea name="content"  placeholder="请输入建议内容" ></textarea>
+					</div>
+					<input type="button" class="subbtn" id="subbtn" value="提交">
+				</div>
+				<div class="clearfix"> </div>
+
+			</form>
+		</div>
+
+
+	</div> 
+</div>
+<!-- //welcome -->
+
+<%}%>

@@ -1,0 +1,45 @@
+<% layout("layout/layout.html",{"menuId":0,"jsFiles":"","cssFiles":""}){%>
+
+
+<!-- welcome -->
+<div class="welcome"> 
+	<div class="container">
+
+		<div class="bs-docs-example">
+			<table class="table table-bordered">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>食材名称</th>
+					<th>食材来源</th>
+					<th>食材价格</th>
+					<th>入库时间</th>
+				</tr>
+				</thead>
+				<tbody>
+
+				<%
+				for(e in ingredientss){
+				%>
+
+				<tr>
+					<td>${e.id}</td>
+					<td>${e.name}</td>
+					<td>${e.source}</td>
+					<td>${e.price}</td>
+					<td>${e.storageTime}</td>
+				</tr>
+
+				<%
+				}
+				%>
+
+
+				</tbody>
+			</table>
+		</div>
+	</div> 
+</div>
+<!-- //welcome -->
+
+<%}%>

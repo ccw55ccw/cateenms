@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
+
+    <package name="cms" namespace="/cms" extends="struts-default">
+
+        <result-types>
+            <result-type name="beetl"
+                         class="org.beetl.ext.struts2.Struts2BeetlActionResult" default="true" >
+                <param name="contentType">text/html; charset=UTF-8</param>
+            </result-type>
+        </result-types>
+
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+            <interceptor name="authority"
+                         class="com.hjj.interceptor.LoginInterceptor">
+            </interceptor>
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 定义全局Result -->
+        <global-results>
+            <!-- 当返回login视图名时，转入login页面 -->
+            <result name="login" type="redirect">login</result>
+        </global-results>
+
+        <!--食堂制度管理-->
+        <action name="rules" class="com.hjj.action.RulesAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/rules.html</result>
+        </action>
+        <action name="rules_base" class="com.hjj.action.RulesAction" method="base">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/rules-base.html</result>
+        </action>
+
+        <!--食堂员工信息管理-->
+        <action name="employee" class="com.hjj.action.EmployeeAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/employee.html</result>
+        </action>
+
+
+        <!--食堂菜谱信息管理-->
+        <action name="menu" class="com.hjj.action.FoodMenuAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/foodmenu.html</result>
+        </action>
+
+        <!--食堂食材信息管理-->
+        <action name="ingredients" class="com.hjj.action.IngredientsAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/ingredients.html</result>
+        </action>
+
+        <!--食堂卫生评分信息管理-->
+        <action name="healthScore" class="com.hjj.action.HealthScoreAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/healthScore.html</result>
+        </action>
+
+        <!--食堂库存信息管理-->
+        <action name="stock" class="com.hjj.action.StockAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/stock.html</result>
+        </action>
+
+        <!--食堂库存信息管理-->
+        <action name="finance" class="com.hjj.action.FinanceAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/finance.html</result>
+        </action>
+
+        <!--食堂意见信息管理-->
+        <action name="opinion" class="com.hjj.action.OpinionAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/opinion.html</result>
+        </action>
+
+        <!--食堂投诉信息管理-->
+        <action name="complaints" class="com.hjj.action.ComplaintsAction" method="index">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/complaints.html</result>
+        </action>
+
+
+    </package>
+
+    <package name="cmsJson" namespace="/cms/api" extends="json-default">
+
+        <!--食堂制度管理-->
+        <action name="rules_*" class="com.hjj.action.RulesAction" method="{1}">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂员工信息管理-->
+        <action name="employee_*" class="com.hjj.action.EmployeeAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂菜谱信息管理-->
+        <action name="foodmenu_*" class="com.hjj.action.FoodMenuAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂食材信息管理-->
+        <action name="ingredients_*" class="com.hjj.action.IngredientsAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂卫生评分信息管理-->
+        <action name="healthScore_*" class="com.hjj.action.HealthScoreAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂库存信息管理-->
+        <action name="stock_*" class="com.hjj.action.StockAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂财务信息管理-->
+        <action name="finance_*" class="com.hjj.action.FinanceAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂意见信息管理-->
+        <action name="opinion_*" class="com.hjj.action.OpinionAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+        <!--食堂投诉信息管理-->
+        <action name="complaints_*" class="com.hjj.action.ComplaintsAction" method="{1}">
+            <result type="json">
+                <param name="root">responseJsonMap</param>
+            </result>
+        </action>
+
+    </package>
+
+
+</struts>

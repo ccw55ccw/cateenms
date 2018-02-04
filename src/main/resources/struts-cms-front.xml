@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="front" namespace="/f" extends="struts-default">
+
+        <result-types>
+            <result-type name="beetl"
+                         class="org.beetl.ext.struts2.Struts2BeetlActionResult" default="true" >
+                <param name="contentType">text/html; charset=UTF-8</param>
+            </result-type>
+        </result-types>
+
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+            <interceptor name="authority"
+                         class="com.hjj.interceptor.LoginInterceptor">
+            </interceptor>
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 定义全局Result -->
+        <global-results>
+            <!-- 当返回login视图名时，转入login页面 -->
+            <result name="login" type="redirect">login</result>
+        </global-results>
+
+        <!--食堂食材展示-->
+        <action name="ingredients" class="com.hjj.action.IngredientsAction" method="fIngredients">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/ingredients.html</result>
+        </action>
+
+        <!--食堂投诉页面-->
+        <action name="complaints" class="com.hjj.action.ComplaintsAction" method="fComplaints">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/complaints.html</result>
+        </action>
+
+        <!--食堂建议页面-->
+        <action name="opinion" class="com.hjj.action.OpinionAction" method="fOpinion">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/opinion.html</result>
+        </action>
+
+        <!--食堂投诉结果展示-->
+        <action name="complaintsres" class="com.hjj.action.ComplaintsAction" method="fComplaintsRes">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/complaintsres.html</result>
+        </action>
+
+        <!--前台关于首页-->
+        <action name="about" class="com.hjj.action.IndexAction" method="about">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/about.html</result>
+        </action>
+
+        <!--前台相册页面-->
+        <action name="gallery" class="com.hjj.action.IndexAction" method="gallery">
+            <interceptor-ref name="mydefault" />
+            <result name="success">/html/front/gallery.html</result>
+        </action>
+
+
+    </package>
+
+
+
+</struts>
